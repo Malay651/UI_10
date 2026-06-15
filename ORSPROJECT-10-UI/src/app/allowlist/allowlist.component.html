@@ -1,0 +1,126 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 75px;
+    padding-bottom: 50px;
+  }
+
+  .card-style {
+    box-shadow: 9px 8px 7px #001a33;
+  }
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card card-style">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Allow List
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Allow List
+          </h3>
+
+          <!-- Success Message -->
+          <div *ngIf="!form.error && form.message" class="alert alert-success">
+            {{ form.message }}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="form.error && form.message" class="alert alert-danger">
+            {{ form.message }}
+          </div>
+
+          <!-- Allow Code -->
+          <span><b>Allow Code</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-code"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+              [(ngModel)]="form.data.allowCode"
+              name="allowCode"
+              placeholder="Enter Allow Code">
+          </div>
+          <font color="red">{{ form.inputerror.allowCode }}</font>
+
+          <!-- Username -->
+          <span><b>Username</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-user"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+              [(ngModel)]="form.data.username"
+              name="username"
+              placeholder="Enter Username">
+          </div>
+          <font color="red">{{ form.inputerror.username }}</font>
+
+          <!-- Source -->
+          <span><b>Source</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-database"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+              [(ngModel)]="form.data.source"
+              name="source"
+              placeholder="Enter Source">
+          </div>
+          <font color="red">{{ form.inputerror.source }}</font>
+
+          <!-- Status -->
+          <span><b>Status</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-toggle-on"></i>
+              </div>
+            </div>
+            <select class="form-control"
+              [(ngModel)]="form.data.status"
+              name="status">
+              <option value="">--Select--</option>
+              <option value="ACTIVE">ACTIVE</option>
+              <option value="INACTIVE">INACTIVE</option>
+            </select>
+          </div>
+          <font color="red">{{ form.inputerror.status }}</font>
+
+          <!-- Buttons -->
+          <div class="text-center mt-3">
+            <button class="btn btn-success" (click)="submit()">Save</button>
+
+            <button class="btn btn-warning ml-2"
+              (click)="forward('/allowlistlist')">
+              List
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+<app-footer></app-footer>

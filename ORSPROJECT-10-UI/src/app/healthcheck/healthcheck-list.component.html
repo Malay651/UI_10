@@ -1,0 +1,185 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 200px;
+    padding-bottom: 175px;
+  }
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="container-fluid pb-5">
+
+    <!-- Title -->
+    <div align="center">
+      <h1 class="text-dark font-weight-bold pt-3"><u>Health Check List</u></h1>
+    </div>
+
+    <!-- Success Message -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 alert alert-success"
+           *ngIf="!form.error && form.message">
+        <h5 class="text-success text-center">{{ form.message }}</h5>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 alert alert-danger"
+           *ngIf="form.error && form.message">
+        <h5 class="text-danger text-center">{{ form.message }}</h5>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div *ngIf="form.list.length > 0">
+
+      <!-- Search Section -->
+      <div class="row mb-3">
+        <div class="col-sm-2"></div>
+
+        <div class="col-sm-3">
+          <input type="text"
+                 [(ngModel)]="form.searchParams.healthCode"
+                 placeholder="Enter Health Code"
+                 class="form-control">
+        </div>
+
+        <div class="col-sm-3">
+          <input type="text"
+                 [(ngModel)]="form.searchParams.servicename"
+                 placeholder="Enter Service Name"
+                 class="form-control">
+        </div>
+
+        <div class="col-sm-3">
+          <select [(ngModel)]="form.searchParams.status"
+                  class="form-control">
+            <option value="undefined">----Select Status----</option>
+            <option value="UP">UP</option>
+            <option value="DOWN">DOWN</option>
+          </select>
+        </div>
+
+        <div class="col-sm-1">
+          <button class="btn btn-primary"
+                  (click)="search()">Search</button>
+        </div>
+
+        <div class="col-sm-1">
+          <button class="btn btn-dark"
+                  (click)="reset()">Reset</button>
+        </div>
+      </div>
+
+      <!--  Table -->
+      <div class="table-responsive mb-3">
+        <table class="table table-bordered table-dark table-hover">
+          <thead>
+            <tr style="background-color: #8C8C8C;">
+              <th>
+                <input type="checkbox"
+                       [(ngModel)]="isMasterSel"
+                       (change)="checkUncheckAll($event)"> Select All
+              </th>
+              <th class="text-center">S.No</th>
+              <th class="text-center">Health Code</th>
+              <th class="text-center">Service Name</th>
+              <th class="text-center">Uptime</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">Edit</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let m of form.list; let i = index" align="center">
+
+              <td>
+                <input type="checkbox"
+                       #checkboxes
+                       (change)="checklistUpdate()"
+                       [id]="m.id"
+                       [value]="isMasterSel">
+              </td>
+
+              <td>{{ (form.pageNo * 5) + i + 1 }}</td>
+              <td>{{ m.healthCode }}</td>
+              <td>{{ m.serviceName }}</td>
+              <td>{{ m.uptime }}</td>
+
+              <td>
+                <span [ngClass]="{
+                  'text-success': m.status === 'UP',
+                  'text-danger': m.status === 'DOWN'
+                }">
+                  {{ m.status }}
+                </span>
+              </td>
+
+              <td>
+                <a (click)="forward('/healthcheck/' + m.id)"
+                   style="cursor:pointer;">
+                  Edit
+                </a>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 🔽 Buttons -->
+      <table width="100%">
+        <tr>
+          <td>
+            <button class="btn btn-warning"
+              (click)="previous()"
+              [disabled]="form.pageNo == 0">
+              Previous
+            </button>
+          </td>
+
+          <td class="text-center">
+            <button class="btn btn-primary"
+              (click)="forward('/healthcheck')">
+              New
+            </button>
+          </td>
+
+          <td class="text-center">
+            <button class="btn btn-danger"
+              (click)="deleteMany()">
+              Delete
+            </button>
+          </td>
+
+          <td align="right">
+            <button class="btn btn-warning"
+              (click)="next()"
+              [disabled]="form.nextListSize == 0">
+              Next
+            </button>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <!-- ❌ Empty State -->
+    <div *ngIf="form.list.length == 0" class="text-center mt-4">
+      <h3 class="text-danger">No Records Found</h3>
+      <br>
+      <button class="btn btn-primary" (click)="reset()">Back</button>
+    </div>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

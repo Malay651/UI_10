@@ -1,0 +1,511 @@
+<style>
+i.css {
+  border: 2px solid #8080803b;
+  padding-left: 10px;
+  padding-bottom: 11px;
+  background-color: #ebebe0;
+}
+
+.input-group-addon {
+  box-shadow: 9px 8px 7px #001a33;
+}
+
+.hm {
+  background-image: url('assets/img/welcome.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 75px;
+  padding-bottom: 50px;
+}
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Security Alert
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Security Alert
+          </h3>
+
+          <!-- Success Message -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success">
+            {{form.message}}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger">
+            {{form.message}}
+          </div>
+
+          <!-- Threat Level -->
+          <span><b>Threat Level</b> <span style="color:red">*</span></span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-shield"></i>
+              </div>
+            </div>
+
+            <select class="form-control"
+                    name="threatLevel"
+                    [(ngModel)]="form.data.threatLevel">
+
+              <option value="">Select</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+
+            </select>
+          </div>
+          <font color="red">{{form.inputerror.threatLevel}}</font>
+          <br>
+
+          <!-- Source IP -->
+          <span><b>Source IP</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-globe"></i>
+              </div>
+            </div>
+
+            <input type="text"
+                   class="form-control"
+                   name="sourceIp"
+                   [(ngModel)]="form.data.sourceIp"
+                   placeholder="Enter Source IP">
+          </div>
+
+          <font color="red">{{form.inputerror.sourceIp}}</font>
+          <br>
+
+          <!-- Detected Time -->
+          <span><b>Detected Time</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+
+            <input type="datetime-local"
+                   class="form-control"
+                   name="detectedTime"
+                   [(ngModel)]="form.data.detectedTime">
+          </div>
+
+          <font color="red">{{form.inputerror.detectedTime}}</font>
+          <br>
+
+          <!-- Status -->
+          <span><b>Status</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-toggle-on"></i>
+              </div>
+            </div>
+
+            <select class="form-control"
+                    name="status"
+                    [(ngModel)]="form.data.status">
+
+              <option value="">Select</option>
+              <option value="Open">Open</option>
+              <option value="Investigating">Investigating</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+
+            </select>
+          </div>
+
+          <font color="red">{{form.inputerror.status}}</font>
+
+          <br><br>
+
+          <!-- Buttons -->
+          <div class="text-center">
+
+            <button class="btn btn-success"
+                    (click)="submit()">
+              Save
+            </button>
+
+            &nbsp;
+
+            <button class="btn btn-warning"
+                    (click)="forward('/securityalertlist')">
+              List
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+
+</div>
+
+<app-footer></app-footer><style>
+i.css {
+  border: 2px solid #8080803b;
+  padding-left: 10px;
+  padding-bottom: 11px;
+  background-color: #ebebe0;
+}
+
+.input-group-addon {
+  box-shadow: 9px 8px 7px #001a33;
+}
+
+.hm {
+  background-image: url('assets/img/welcome.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 75px;
+  padding-bottom: 50px;
+}
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Security Alert
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Security Alert
+          </h3>
+
+          <!-- Success Message -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success">
+            {{form.message}}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger">
+            {{form.message}}
+          </div>
+
+          <!-- Threat Level -->
+          <span><b>Threat Level</b> <span style="color:red">*</span></span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-shield"></i>
+              </div>
+            </div>
+
+            <select class="form-control"
+                    name="threatLevel"
+                    [(ngModel)]="form.data.threatLevel">
+
+              <option value="">Select</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+
+            </select>
+          </div>
+          <font color="red">{{form.inputerror.threatLevel}}</font>
+          <br>
+
+          <!-- Source IP -->
+          <span><b>Source IP</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-globe"></i>
+              </div>
+            </div>
+
+            <input type="text"
+                   class="form-control"
+                   name="sourceIp"
+                   [(ngModel)]="form.data.sourceIp"
+                   placeholder="Enter Source IP">
+          </div>
+
+          <font color="red">{{form.inputerror.sourceIp}}</font>
+          <br>
+
+          <!-- Detected Time -->
+          <span><b>Detected Time</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+
+            <input type="datetime-local"
+                   class="form-control"
+                   name="detectedTime"
+                   [(ngModel)]="form.data.detectedTime">
+          </div>
+
+          <font color="red">{{form.inputerror.detectedTime}}</font>
+          <br>
+
+          <!-- Status -->
+          <span><b>Status</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-toggle-on"></i>
+              </div>
+            </div>
+
+            <select class="form-control"
+                    name="status"
+                    [(ngModel)]="form.data.status">
+
+              <option value="">Select</option>
+              <option value="Open">Open</option>
+              <option value="Investigating">Investigating</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+
+            </select>
+          </div>
+
+          <font color="red">{{form.inputerror.status}}</font>
+
+          <br><br>
+
+          <!-- Buttons -->
+          <div class="text-center">
+
+            <button class="btn btn-success"
+                    (click)="submit()">
+              Save
+            </button>
+
+            &nbsp;
+
+            <button class="btn btn-warning"
+                    (click)="forward('/securityalertlist')">
+              List
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+
+</div>
+
+<app-footer></app-footer><style>
+i.css {
+  border: 2px solid #8080803b;
+  padding-left: 10px;
+  padding-bottom: 11px;
+  background-color: #ebebe0;
+}
+
+.input-group-addon {
+  box-shadow: 9px 8px 7px #001a33;
+}
+
+.hm {
+  background-image: url('assets/img/welcome.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 75px;
+  padding-bottom: 50px;
+}
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Security Alert
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Security Alert
+          </h3>
+
+          <!-- Success Message -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success">
+            {{form.message}}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger">
+            {{form.message}}
+          </div>
+
+          <!-- Threat Level -->
+          <span><b>Threat Level</b> <span style="color:red">*</span></span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-shield"></i>
+              </div>
+            </div>
+
+            <select class="form-control"
+                    name="threatLevel"
+                    [(ngModel)]="form.data.threatLevel">
+
+              <option value="">Select</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Critical">Critical</option>
+
+            </select>
+          </div>
+          <font color="red">{{form.inputerror.threatLevel}}</font>
+          <br>
+
+          <!-- Source IP -->
+          <span><b>Source IP</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-globe"></i>
+              </div>
+            </div>
+
+            <input type="text"
+                   class="form-control"
+                   name="sourceIp"
+                   [(ngModel)]="form.data.sourceIp"
+                   placeholder="Enter Source IP">
+          </div>
+
+          <font color="red">{{form.inputerror.sourceIp}}</font>
+          <br>
+
+          <!-- Detected Time -->
+          <span><b>Detected Time</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+
+            <input type="datetime-local"
+                   class="form-control"
+                   name="detectedTime"
+                   [(ngModel)]="form.data.detectedTime">
+          </div>
+
+          <font color="red">{{form.inputerror.detectedTime}}</font>
+          <br>
+
+          <!-- Status -->
+          <span><b>Status</b> <span style="color:red">*</span></span>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-toggle-on"></i>
+              </div>
+            </div>
+
+            <select class="form-control"
+                    name="status"
+                    [(ngModel)]="form.data.status">
+
+              <option value="">Select</option>
+              <option value="Open">Open</option>
+              <option value="Investigating">Investigating</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+
+            </select>
+          </div>
+
+          <font color="red">{{form.inputerror.status}}</font>
+
+          <br><br>
+
+          <!-- Buttons -->
+          <div class="text-center">
+
+            <button class="btn btn-success"
+                    (click)="submit()">
+              Save
+            </button>
+
+            &nbsp;
+
+            <button class="btn btn-warning"
+                    (click)="forward('/securityalertlist')">
+              List
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>

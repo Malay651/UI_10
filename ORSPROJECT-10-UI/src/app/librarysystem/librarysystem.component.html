@@ -1,0 +1,146 @@
+<style>
+i.css {
+  border: 2px solid #8080803b;
+  padding-left: 10px;
+  padding-bottom: 11px;
+  background-color: #ebebe0;
+}
+
+.input-group-addon {
+  box-shadow: 9px 8px 7px #001a33;
+}
+
+.hm {
+  background-image: url('assets/img/library.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 75px;
+  padding-bottom: 50px;
+}
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Book
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Book
+          </h3>
+
+          <!-- Success Message -->
+          <div *ngIf="!form.error && form.message"
+            class="alert alert-success text-center">
+            {{form.message}}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="form.error && form.message"
+            class="alert alert-danger text-center">
+            {{form.message}}
+          </div>
+
+          <!-- Book Name -->
+          <span><b>Book Name</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-book"></i>
+              </div>
+            </div>
+            <input type="text"
+              class="form-control"
+              name="bookName"
+              [(ngModel)]="form.data.bookName"
+              placeholder="Enter Book Name">
+          </div>
+          <font color="red">{{form.inputerror.bookName}}</font>
+
+          <!-- Author Name -->
+          <span><b>Author Name</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-user"></i>
+              </div>
+            </div>
+            <input type="text"
+              class="form-control"
+              name="authorName"
+              [(ngModel)]="form.data.authorName"
+              placeholder="Enter Author Name">
+          </div>
+          <font color="red">{{form.inputerror.authorName}}</font>
+
+          <!-- Issued Date -->
+          <span><b>Issued Date</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+            <input type="date"
+              class="form-control"
+              name="issuedDate"
+              [(ngModel)]="form.data.issuedDate">
+          </div>
+          <font color="red">{{form.inputerror.issuedDate}}</font>
+
+          <!-- Price -->
+          <span><b>Price</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-money"></i>
+              </div>
+            </div>
+            <input type="number"
+              class="form-control"
+              name="price"
+              [(ngModel)]="form.data.price"
+              placeholder="Enter Price">
+          </div>
+          <font color="red">{{form.inputerror.price}}</font>
+
+          <br>
+
+          <!-- Buttons -->
+          <div class="text-center">
+
+            <button class="btn btn-success"
+              (click)="submit()">
+              Save
+            </button>
+
+            &nbsp;
+
+            <button class="btn btn-warning"
+              (click)="forward('/librarylist')">
+              List
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>
